@@ -528,6 +528,123 @@
       background: var(--color-paper-3);
       border-bottom: var(--rule);
     }
+
+    /* ─── CAROUSEL ───────────────────────────────────────────────── */
+    .carousel {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 8;
+      overflow: hidden;
+      background: var(--color-paper-3);
+      border-bottom: var(--rule);
+    }
+    .carousel__track {
+      display: flex;
+      height: 100%;
+      transition: transform 320ms var(--ease-in-out);
+    }
+    .carousel__track img {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      cursor: zoom-in;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .carousel__btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      background: oklch(98.5% 0.004 250 / 0.88);
+      border: var(--rule-strong);
+      border-radius: var(--radius-md);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--color-ink);
+      transition: background var(--dur-micro) var(--ease-out),
+                  opacity var(--dur-micro) var(--ease-out);
+      padding: 0;
+    }
+    .carousel__btn:hover { background: var(--color-paper); }
+    .carousel__btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+    .carousel__btn--prev { left: var(--space-sm); }
+    .carousel__btn--next { right: var(--space-sm); }
+    .carousel__btn[disabled] { opacity: 0.3; pointer-events: none; }
+    .carousel__dots {
+      position: absolute;
+      bottom: var(--space-sm);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 5px;
+      z-index: 2;
+    }
+    .carousel__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: oklch(20% 0.020 258 / 0.25);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background var(--dur-micro) var(--ease-out),
+                  transform var(--dur-micro) var(--ease-out);
+    }
+    .carousel__dot.is-active {
+      background: var(--color-accent);
+      transform: scale(1.3);
+    }
+    .carousel__dot:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+    /* ─── LIGHTBOX ───────────────────────────────────────────────── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: var(--z-modal);
+      background: oklch(10% 0.010 258 / 0.92);
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-xl);
+    }
+    .lightbox.is-open { display: flex; }
+    .lightbox__img {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: var(--radius-lg);
+      border: var(--rule);
+      object-fit: contain;
+      display: block;
+    }
+    .lightbox__close {
+      position: absolute;
+      top: var(--space-lg);
+      right: var(--space-lg);
+      background: oklch(98.5% 0.004 250 / 0.12);
+      border: 1px solid oklch(100% 0 0 / 0.15);
+      border-radius: var(--radius-md);
+      color: oklch(95% 0.004 250);
+      font-size: var(--text-lg);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background var(--dur-micro) var(--ease-out);
+      padding: 0;
+    }
+    .lightbox__close:hover { background: oklch(98.5% 0.004 250 / 0.22); }
+    .lightbox__close:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
     .project-card__body { padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-sm); flex: 1; }
     .project-card__meta {
       font-family: var(--font-mono);
@@ -931,30 +1048,17 @@
         <div class="project-grid">
 
           <article class="project-card reveal">
-            <svg class="project-card__diagram" viewBox="0 0 480 240" xmlns="http://www.w3.org/2000/svg" aria-label="liteBIG SuperApps architecture" role="img">
-              <rect width="480" height="240" fill="var(--color-paper-3)"/>
-              <rect x="20" y="24" width="82" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
-              <text x="61" y="44" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Chat / XMPP</text>
-              <rect x="116" y="24" width="82" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
-              <text x="157" y="44" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Social Feed</text>
-              <rect x="212" y="24" width="82" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
-              <text x="253" y="44" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Marketplace</text>
-              <rect x="308" y="24" width="82" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
-              <text x="349" y="44" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">PPOB / Donate</text>
-              <rect x="20" y="92" width="370" height="32" rx="4" fill="var(--color-accent-light)" stroke="var(--color-accent)" stroke-width="1"/>
-              <text x="205" y="112" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-accent)" text-anchor="middle">MVVM · Clean Architecture · DI (Hilt/Koin)</text>
-              <line x1="61" y1="56" x2="61" y2="92" stroke="var(--color-rule-2)" stroke-width="1"/>
-              <line x1="157" y1="56" x2="157" y2="92" stroke="var(--color-rule-2)" stroke-width="1"/>
-              <line x1="253" y1="56" x2="253" y2="92" stroke="var(--color-rule-2)" stroke-width="1"/>
-              <line x1="349" y1="56" x2="349" y2="92" stroke="var(--color-rule-2)" stroke-width="1"/>
-              <rect x="20" y="156" width="168" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
-              <text x="104" y="176" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Firebase · Retrofit · Room</text>
-              <rect x="204" y="156" width="186" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
-              <text x="297" y="176" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">XMPP · OMEMO · XEP-0313</text>
-              <line x1="104" y1="124" x2="104" y2="156" stroke="var(--color-rule-2)" stroke-width="1"/>
-              <line x1="297" y1="124" x2="297" y2="156" stroke="var(--color-rule-2)" stroke-width="1"/>
-              <text x="20" y="218" font-family="JetBrains Mono,monospace" font-size="8" fill="var(--color-muted)">+ white-label variants for external clients</text>
-            </svg>
+            <!-- Carousel: add more <img> tags here to add slides -->
+            <div class="carousel" role="region" aria-label="liteBIG SuperApps screenshots">
+              <div class="carousel__track">
+                <img src="assets/litebig-superapps1.png" alt="liteBIG SuperApps — screen 1" loading="lazy">
+                <img src="assets/litebig-superapps2.png" alt="liteBIG SuperApps — screen 2" loading="lazy">
+                <img src="assets/litebig-superapps3.jpg" alt="liteBIG SuperApps — screen 3" loading="lazy">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" aria-label="Previous slide" disabled>&#8249;</button>
+              <button class="carousel__btn carousel__btn--next" aria-label="Next slide">&#8250;</button>
+              <div class="carousel__dots" aria-hidden="true"></div>
+            </div>
             <div class="project-card__body">
               <p class="project-card__meta">2018 – 2020 · Client work</p>
               <h3 class="project-card__name">liteBIG SuperApps</h3>
@@ -1161,10 +1265,15 @@
     </div>
   </footer>
 
-  <!-- Reveal on scroll — IntersectionObserver -->
+  <!-- Lightbox overlay — shared across all carousels -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox__close" id="lightbox-close" aria-label="Close">&#215;</button>
+    <img class="lightbox__img" id="lightbox-img" src="" alt="">
+  </div>
+
   <script>
     (function () {
-      /* Sticky nav scroll shadow */
+      /* ── Sticky nav scroll shadow ─────────────────────────────── */
       var nav = document.querySelector('.nav');
       function onScroll() {
         nav.classList.toggle('is-scrolled', window.scrollY > 8);
@@ -1172,18 +1281,93 @@
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
 
-      /* Reveal on scroll */
+      /* ── Reveal on scroll ─────────────────────────────────────── */
       var els = document.querySelectorAll('.reveal');
-      if (!window.IntersectionObserver) {
+      if (window.IntersectionObserver) {
+        var io = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) {
+            if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.08 });
+        els.forEach(function(el){ io.observe(el); });
+      } else {
         els.forEach(function(el){ el.classList.add('is-in'); });
-        return;
       }
-      var io = new IntersectionObserver(function(entries) {
-        entries.forEach(function(e) {
-          if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+
+      /* ── Lightbox ─────────────────────────────────────────────── */
+      var lightbox    = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightbox-img');
+      var lightboxClose = document.getElementById('lightbox-close');
+
+      function openLightbox(src, alt) {
+        lightboxImg.src = src;
+        lightboxImg.alt = alt;
+        lightbox.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        lightboxClose.focus();
+      }
+      function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        document.body.style.overflow = '';
+        lightboxImg.src = '';
+      }
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+      });
+
+      /* ── Carousels ────────────────────────────────────────────── */
+      document.querySelectorAll('.carousel').forEach(function(carousel) {
+        var track  = carousel.querySelector('.carousel__track');
+        var slides = track.querySelectorAll('img');
+        var dotsEl = carousel.querySelector('.carousel__dots');
+        var btnPrev = carousel.querySelector('.carousel__btn--prev');
+        var btnNext = carousel.querySelector('.carousel__btn--next');
+        var current = 0;
+        var total   = slides.length;
+
+        /* Build dots */
+        slides.forEach(function(_, i) {
+          var dot = document.createElement('button');
+          dot.className = 'carousel__dot' + (i === 0 ? ' is-active' : '');
+          dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+          dot.addEventListener('click', function() { goTo(i); });
+          dotsEl.appendChild(dot);
         });
-      }, { threshold: 0.08 });
-      els.forEach(function(el){ io.observe(el); });
+
+        function goTo(index) {
+          current = index;
+          track.style.transform = 'translateX(-' + (100 * current) + '%)';
+          dotsEl.querySelectorAll('.carousel__dot').forEach(function(d, i) {
+            d.classList.toggle('is-active', i === current);
+          });
+          btnPrev.disabled = current === 0;
+          btnNext.disabled = current === total - 1;
+        }
+
+        btnPrev.addEventListener('click', function() { if (current > 0) goTo(current - 1); });
+        btnNext.addEventListener('click', function() { if (current < total - 1) goTo(current + 1); });
+
+        /* Keyboard navigation when carousel is focused */
+        carousel.addEventListener('keydown', function(e) {
+          if (e.key === 'ArrowLeft' && current > 0) goTo(current - 1);
+          if (e.key === 'ArrowRight' && current < total - 1) goTo(current + 1);
+        });
+
+        /* Click image to open lightbox */
+        slides.forEach(function(img) {
+          img.addEventListener('click', function() {
+            openLightbox(img.src, img.alt);
+          });
+        });
+
+        /* Init */
+        goTo(0);
+      });
+
     })();
   </script>
 
