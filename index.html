@@ -249,8 +249,18 @@
       filter: grayscale(5%);
     }
     @media (max-width: 59.9rem) {
-      .hero__right { max-width: 100%; }
-      .hero__photo { max-width: 200px; max-height: none; aspect-ratio: 1 / 1; border-radius: 50%; margin-inline: auto; }
+      .hero__right { max-width: 100%; align-items: center; }
+      .hero__photo-wrap { width: auto; }
+      .hero__photo {
+        width: 160px;
+        height: 160px;
+        max-height: none;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center top;
+        flex-shrink: 0;
+      }
     }
 
     /* Code card — pure HTML/CSS, no fake screenshots */
