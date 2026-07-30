@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Yuhananda Aditama — Application Developer</title>
+  <meta name="description" content="Portfolio of Yuhananda Aditama — Android, backend, and AI engineering. Based in Yogyakarta, Indonesia.">
+
+  <!-- Fonts: Space Grotesk · Inter · JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Tokens -->
+  <link rel="stylesheet" href="tokens.css">
+
+  <style>
+    /* Hallmark · genre: modern-minimal · macrostructure: Split Studio · theme: Cobalt */
+
+    /* ─── Reset ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: clip; scroll-behavior: smooth; font-size: 16px; }
+    body {
+      overflow-x: clip;
+      background: var(--color-paper);
+      color: var(--color-ink-2);
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: var(--text-base);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Reveal animation ───────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur-reveal) var(--ease-out),
+                  transform var(--dur-reveal) var(--ease-out);
+    }
+    .reveal.is-in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ─── Layout ─────────────────────────────────────────────────── */
+    .container {
+      max-width: 72rem;
+      margin-inline: auto;
+      padding-inline: clamp(1rem, 4vw, 2.5rem);
+    }
+
+    /* ─── NAV — N1b canonical SaaS bar ──────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: var(--z-sticky);
+      background: oklch(98.5% 0.004 250 / 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: var(--rule);
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-xl);
+      height: 56px;
+    }
+    .nav__wordmark {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: var(--text-md);
+      letter-spacing: -0.025em;
+      color: var(--color-ink);
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .nav__wordmark:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; border-radius: var(--radius-sm); }
+    .nav__links {
+      display: none;
+      list-style: none;
+      gap: var(--space-xl);
+      align-items: center;
+      flex: 1;
+      justify-content: center;
+    }
+    @media (min-width: 56rem) { .nav__links { display: flex; } }
+    .nav__link {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-neutral);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color var(--dur-micro) var(--ease-out);
+    }
+    .nav__link:hover { color: var(--color-ink); }
+    .nav__link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; border-radius: var(--radius-sm); }
+    .nav__actions { display: flex; align-items: center; gap: var(--space-sm); flex-shrink: 0; }
+    .btn-nav-cv {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-neutral);
+      text-decoration: none;
+      white-space: nowrap;
+      padding: var(--space-xs) var(--space-md);
+      border: var(--rule-strong);
+      border-radius: var(--radius-md);
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+      display: none;
+    }
+    @media (min-width: 56rem) { .btn-nav-cv { display: inline-flex; align-items: center; gap: 4px; } }
+    .btn-nav-cv:hover { color: var(--color-ink); border-color: var(--color-ink); }
+    .btn-nav-cv:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+    .btn-primary {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-accent-ink);
+      background: var(--color-accent);
+      border: none;
+      border-radius: var(--radius-md);
+      padding: var(--space-xs) var(--space-lg);
+      text-decoration: none;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      transition: opacity var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+
+    /* ─── HERO — Split Studio (photo left · code card right) ────── */
+    .hero {
+      padding-block: var(--space-3xl) var(--space-2xl);
+      border-bottom: var(--rule);
+    }
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+    @media (min-width: 60rem) {
+      .hero__grid { grid-template-columns: 1fr 1fr; gap: var(--space-3xl); }
+    }
+
+    /* Left: identity */
+    .hero__eyebrow {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-md);
+    }
+    .hero__name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: var(--text-display);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      color: var(--color-ink);
+      margin-bottom: var(--space-lg);
+      overflow-wrap: anywhere;
+      min-width: 0;
+    }
+    .hero__title {
+      font-size: var(--text-md);
+      font-weight: 400;
+      color: var(--color-neutral);
+      margin-bottom: var(--space-lg);
+      line-height: 1.5;
+    }
+    .hero__lede {
+      font-size: var(--text-base);
+      line-height: 1.65;
+      color: var(--color-ink-2);
+      max-width: 52ch;
+      margin-bottom: var(--space-xl);
+    }
+    .hero__ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+    .btn-outline-hero {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-ink);
+      border: var(--rule-strong);
+      border-radius: var(--radius-md);
+      padding: var(--space-xs) var(--space-lg);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+    .btn-outline-hero:hover { border-color: var(--color-ink); transform: translateY(-1px); }
+    .btn-outline-hero:active { transform: translateY(0); }
+    .btn-outline-hero:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+    .btn-cv-hero {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-neutral);
+      border: var(--rule);
+      border-radius: var(--radius-md);
+      padding: var(--space-xs) var(--space-md);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .btn-cv-hero:hover { color: var(--color-accent); border-color: var(--color-accent); }
+    .btn-cv-hero:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+
+    /* Right: photo + code card stacked */
+    .hero__right { display: flex; flex-direction: column; gap: var(--space-lg); }
+    .hero__photo-wrap { position: relative; }
+    .hero__photo {
+      width: 100%;
+      max-width: 380px;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      border-radius: var(--radius-lg);
+      border: var(--rule);
+      filter: grayscale(5%);
+    }
+    @media (max-width: 59.9rem) {
+      .hero__photo { max-width: 220px; aspect-ratio: 1 / 1; border-radius: 50%; }
+    }
+
+    /* Code card — pure HTML/CSS, no fake screenshots */
+    .code-card {
+      background: var(--color-graphite);
+      border: 1px solid var(--color-graphite-2);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      box-shadow: 0 1px 3px oklch(18% 0.018 260 / 0.12);
+    }
+    .code-card__bar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 1px solid var(--color-graphite-2);
+    }
+    .code-card__dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--color-graphite-2);
+    }
+    .code-card__filename {
+      font-size: var(--text-xs);
+      color: oklch(50% 0.010 254);
+      letter-spacing: 0.04em;
+      margin-left: var(--space-xs);
+    }
+    .code-card__body { padding: var(--space-md) var(--space-lg); line-height: 1.7; }
+    .tok-comment { color: oklch(45% 0.010 254); }
+    .tok-key     { color: var(--color-accent); }
+    .tok-str     { color: oklch(72% 0.12 160); }
+    .tok-fn      { color: oklch(78% 0.10 56); }
+    .tok-muted   { color: oklch(55% 0.010 254); }
+    .tok-white   { color: oklch(90% 0.006 252); }
+    .code-card__status {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-sm) var(--space-lg);
+      border-top: 1px solid var(--color-graphite-2);
+    }
+    .status-chip {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      color: var(--color-ok);
+      background: var(--color-ok-bg);
+      border-radius: 3px;
+      padding: 1px 6px;
+      text-transform: uppercase;
+    }
+    .status-msg { font-size: var(--text-xs); color: oklch(55% 0.010 254); }
+
+    /* ─── SECTIONS ───────────────────────────────────────────────── */
+    .section {
+      padding-block: var(--space-3xl);
+      border-bottom: var(--rule);
+    }
+    .section--tight { padding-block: var(--space-2xl); }
+    .section__head {
+      font-family: var(--font-display);
+      font-size: var(--text-display-s);
+      font-weight: 700;
+      font-style: normal;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      color: var(--color-ink);
+      margin-bottom: var(--space-xl);
+      overflow-wrap: anywhere;
+      min-width: 0;
+    }
+    .section__sub {
+      font-size: var(--text-base);
+      color: var(--color-neutral);
+      line-height: 1.6;
+      max-width: 58ch;
+      margin-bottom: var(--space-2xl);
+      margin-top: calc(-1 * var(--space-md));
+    }
+
+    /* ─── ABOUT ──────────────────────────────────────────────────── */
+    .about__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+    @media (min-width: 60rem) { .about__grid { grid-template-columns: 1fr 1fr; gap: var(--space-3xl); } }
+    .about__body {
+      font-size: var(--text-base);
+      line-height: 1.7;
+      color: var(--color-ink-2);
+      max-width: 60ch;
+    }
+    .about__body p + p { margin-top: var(--space-md); }
+    .about__stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      align-content: start;
+    }
+    .stat-box {
+      padding: var(--space-lg);
+      border: var(--rule);
+      border-radius: var(--radius-md);
+      background: var(--color-paper-2);
+    }
+    .stat-box__num {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--color-ink);
+      line-height: 1;
+      margin-bottom: var(--space-xs);
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-box__num span { color: var(--color-accent); }
+    .stat-box__label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-muted);
+    }
+
+    /* ─── EXPERIENCE ─────────────────────────────────────────────── */
+    .timeline { list-style: none; }
+    .timeline__item {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xs);
+      padding-block: var(--space-xl);
+      border-top: var(--rule);
+    }
+    @media (min-width: 60rem) {
+      .timeline__item { grid-template-columns: 11rem 1fr; gap: var(--space-2xl); align-items: start; }
+    }
+    .timeline__meta { padding-top: 3px; }
+    .timeline__period {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.06em;
+      color: var(--color-muted);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.5;
+    }
+    .timeline__company {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-neutral);
+      margin-top: var(--space-2xs);
+    }
+    .timeline__role {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 600;
+      letter-spacing: -0.018em;
+      color: var(--color-ink);
+      margin-bottom: var(--space-sm);
+      line-height: 1.2;
+    }
+    .timeline__desc {
+      font-size: var(--text-sm);
+      color: var(--color-neutral);
+      line-height: 1.6;
+      margin-bottom: var(--space-md);
+      max-width: 60ch;
+    }
+    .timeline__bullets { list-style: none; display: flex; flex-direction: column; gap: var(--space-xs); }
+    .timeline__bullets li {
+      font-size: var(--text-sm);
+      color: var(--color-ink-2);
+      padding-left: var(--space-lg);
+      position: relative;
+      line-height: 1.55;
+    }
+    .timeline__bullets li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--color-accent);
+      font-family: var(--font-mono);
+    }
+    .timeline__tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.05em;
+      color: var(--color-muted);
+      border: var(--rule);
+      border-radius: var(--radius-sm);
+      padding: 2px var(--space-sm);
+      margin-top: var(--space-md);
+    }
+    .timeline__gap {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xs);
+      padding-block: var(--space-lg);
+      border-top: var(--rule);
+    }
+    @media (min-width: 60rem) {
+      .timeline__gap { grid-template-columns: 11rem 1fr; gap: var(--space-2xl); }
+    }
+    .timeline__gap-text {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.04em;
+      color: var(--color-muted);
+      padding-top: 3px;
+      max-width: 55ch;
+    }
+
+    /* ─── SKILLS ─────────────────────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+    @media (min-width: 44rem) { .skills-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 80rem) { .skills-grid { grid-template-columns: 1fr 1fr 1fr; } }
+    .skill-card {
+      border: var(--rule);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      background: var(--color-paper-2);
+    }
+    .skill-card__label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-sm);
+    }
+    .skill-card__list {
+      font-size: var(--text-sm);
+      line-height: 1.8;
+      color: var(--color-ink-2);
+    }
+
+    /* ─── PROJECTS ───────────────────────────────────────────────── */
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+    @media (min-width: 60rem) { .project-grid { grid-template-columns: 1fr 1fr; } }
+    .project-card {
+      border: var(--rule);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--color-paper-2);
+      display: flex;
+      flex-direction: column;
+      transition: border-color var(--dur-short) var(--ease-out),
+                  transform var(--dur-short) var(--ease-out),
+                  box-shadow var(--dur-short) var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .project-card:hover {
+        border-color: var(--color-accent);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px oklch(58% 0.20 256 / 0.08);
+      }
+    }
+    .project-card__diagram {
+      width: 100%;
+      aspect-ratio: 16 / 8;
+      display: block;
+      background: var(--color-paper-3);
+      border-bottom: var(--rule);
+    }
+    .project-card__body { padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-sm); flex: 1; }
+    .project-card__meta {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--color-muted);
+    }
+    .project-card__name {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 600;
+      letter-spacing: -0.018em;
+      color: var(--color-ink);
+      line-height: 1.2;
+    }
+    .project-card__desc {
+      font-size: var(--text-sm);
+      line-height: 1.6;
+      color: var(--color-ink-2);
+      flex: 1;
+    }
+    .project-card__tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); padding-top: var(--space-xs); }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-neutral);
+      border: var(--rule);
+      border-radius: var(--radius-sm);
+      padding: 1px var(--space-sm);
+      white-space: nowrap;
+    }
+
+    /* ─── CERTIFICATION ──────────────────────────────────────────── */
+    .cert-card {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+      padding: var(--space-xl);
+      border: var(--rule);
+      border-radius: var(--radius-lg);
+      background: var(--color-paper-2);
+    }
+    @media (min-width: 56rem) { .cert-card { grid-template-columns: 1fr auto; align-items: center; } }
+    .cert-card__icon {
+      width: 40px; height: 40px;
+      border-radius: var(--radius-md);
+      background: var(--color-accent-light);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: var(--space-sm);
+    }
+    .cert-card__icon svg { width: 20px; height: 20px; }
+    .cert-card__name {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 600;
+      letter-spacing: -0.018em;
+      color: var(--color-ink);
+      margin-bottom: var(--space-xs);
+    }
+    .cert-card__issuer { font-size: var(--text-sm); color: var(--color-neutral); }
+    .cert-card__badge {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      border: 1px solid var(--color-accent);
+      border-radius: var(--radius-md);
+      padding: var(--space-sm) var(--space-lg);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .cert-card__badge:hover { background: var(--color-accent); color: var(--color-accent-ink); }
+    .cert-card__badge:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+
+    /* ─── CONTACT ────────────────────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+    @media (min-width: 44rem) { .contact-grid { grid-template-columns: 1fr 1fr; } }
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2xs);
+      padding: var(--space-lg);
+      border: var(--rule);
+      border-radius: var(--radius-md);
+      background: var(--color-paper-2);
+      text-decoration: none;
+      transition: border-color var(--dur-micro) var(--ease-out);
+    }
+    .contact-item:hover { border-color: var(--color-accent); }
+    .contact-item:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+    .contact-item__label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-muted);
+    }
+    .contact-item__value {
+      font-family: var(--font-display);
+      font-size: var(--text-md);
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--color-ink);
+      overflow-wrap: anywhere;
+    }
+
+    /* ─── FOOTER — Ft2 Inline single line ───────────────────────── */
+    .footer {
+      padding-block: var(--space-xl);
+      border-top: var(--rule-strong);
+    }
+    .footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .footer__name {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-ink);
+      letter-spacing: -0.015em;
+    }
+    .footer__meta {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      letter-spacing: 0.04em;
+    }
+    .footer__links { display: flex; gap: var(--space-lg); list-style: none; }
+    .footer__links a {
+      font-size: var(--text-sm);
+      color: var(--color-neutral);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color var(--dur-micro) var(--ease-out);
+    }
+    .footer__links a:hover { color: var(--color-accent); }
+    .footer__links a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────────────────── -->
+  <header role="banner">
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="container">
+        <div class="nav__inner">
+          <a class="nav__wordmark" href="#top" aria-label="Yuhananda Aditama — home">yuhanadit.</a>
+          <ul class="nav__links" role="list">
+            <li><a class="nav__link" href="#work">Work</a></li>
+            <li><a class="nav__link" href="#projects">Projects</a></li>
+            <li><a class="nav__link" href="#contact">Contact</a></li>
+          </ul>
+          <div class="nav__actions">
+            <a class="btn-nav-cv" href="assets/yuhananda-aditama-cv.pdf" target="_blank" rel="noopener" aria-label="Open CV in new tab">↗ CV</a>
+            <a class="btn-primary" href="#contact">Get in touch</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ─── HERO ─────────────────────────────────────────────── -->
+    <section class="hero" aria-labelledby="hero-name">
+      <div class="container">
+        <div class="hero__grid">
+
+          <!-- Left: identity -->
+          <div class="reveal">
+            <p class="hero__eyebrow">Application Developer · AI Engineer</p>
+            <h1 id="hero-name" class="hero__name">Yuhananda<br>Aditama</h1>
+            <p class="hero__title">Android · Backend · Enterprise &amp; AI</p>
+            <p class="hero__lede">Seven years building production software — from XMPP-encrypted messaging apps and logistics platforms to enterprise testing pipelines and AI-assisted delivery at IBM. Based in Yogyakarta, Indonesia.</p>
+            <div class="hero__ctas">
+              <a class="btn-primary" href="#contact">Get in touch</a>
+              <a class="btn-outline-hero" href="https://linkedin.com/in/yuhanadit" target="_blank" rel="noopener">LinkedIn ↗</a>
+              <a class="btn-outline-hero" href="https://github.com/yuhanadit-tech" target="_blank" rel="noopener">GitHub ↗</a>
+              <a class="btn-cv-hero" href="assets/yuhananda-aditama-cv.pdf" target="_blank" rel="noopener" aria-label="Open CV PDF in new tab">↗ CV</a>
+            </div>
+          </div>
+
+          <!-- Right: photo + code card -->
+          <div class="hero__right reveal" style="transition-delay:100ms">
+            <div class="hero__photo-wrap">
+              <img
+                class="hero__photo"
+                src="assets/photo.jpg"
+                alt="Yuhananda Aditama"
+                width="380" height="507"
+                fetchpriority="high"
+              >
+            </div>
+            <!-- Code card — stack snapshot -->
+            <div class="code-card" aria-label="Tech stack snapshot">
+              <div class="code-card__bar">
+                <span class="code-card__dot"></span>
+                <span class="code-card__dot"></span>
+                <span class="code-card__dot"></span>
+                <span class="code-card__filename">stack.kt</span>
+              </div>
+              <div class="code-card__body">
+                <div><span class="tok-comment">// primary stack</span></div>
+                <div><span class="tok-key">val</span> <span class="tok-white">stack</span> <span class="tok-muted">=</span> <span class="tok-fn">listOf</span><span class="tok-muted">(</span></div>
+                <div>&nbsp;&nbsp;<span class="tok-str">"Kotlin"</span><span class="tok-muted">,</span> <span class="tok-str">"Spring Boot"</span><span class="tok-muted">,</span></div>
+                <div>&nbsp;&nbsp;<span class="tok-str">"Jetpack Compose"</span><span class="tok-muted">,</span> <span class="tok-str">"IBM IQP+"</span></div>
+                <div><span class="tok-muted">)</span></div>
+                <div><span class="tok-key">val</span> <span class="tok-white">yrs</span> <span class="tok-muted">=</span> <span class="tok-fn">7</span></div>
+              </div>
+              <div class="code-card__status">
+                <span class="status-chip">Active</span>
+                <span class="status-msg">IBM Delivery Indonesia · May 2025 – present</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── ABOUT ─────────────────────────────────────────────── -->
+    <section class="section" aria-labelledby="about-head">
+      <div class="container">
+        <h2 id="about-head" class="section__head reveal">The work, in full.</h2>
+        <div class="about__grid">
+          <div class="about__body reveal">
+            <p>Started as a Java Android developer at an XSIS bootcamp in 2018 — and stayed long enough to build the curriculum for those same bootcamps years later. In between, shipped a SuperApp combining social, chat, and marketplace for liteBIG; built cargo-monitoring and COD applications for AnterAja; and authored end-to-end syllabi for Spring Boot, Kotlin Android, and QA Automation tracks.</p>
+            <p>Today at IBM Delivery Indonesia, working on enterprise-scale quality platforms and applying AI Engineering practices — using IBM Consulting Advantage to accelerate delivery for clients undergoing digital transformation.</p>
+            <p>What ties it all together: clean code, teachable ideas, and systems that hold under load.</p>
+          </div>
+          <div class="about__stats reveal" style="transition-delay:80ms">
+            <div class="stat-box">
+              <p class="stat-box__num">7<span>+</span></p>
+              <p class="stat-box__label">Years experience</p>
+            </div>
+            <div class="stat-box">
+              <p class="stat-box__num">5</p>
+              <p class="stat-box__label">Bootcamp tracks authored</p>
+            </div>
+            <div class="stat-box">
+              <p class="stat-box__num">4</p>
+              <p class="stat-box__label">Production platforms shipped</p>
+            </div>
+            <div class="stat-box">
+              <p class="stat-box__num">1</p>
+              <p class="stat-box__label">Active certification</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── EXPERIENCE ────────────────────────────────────────── -->
+    <section class="section" id="work" aria-labelledby="exp-head">
+      <div class="container">
+        <h2 id="exp-head" class="section__head reveal">Work experience.</h2>
+        <ol class="timeline" reversed>
+
+          <li class="timeline__item reveal">
+            <div class="timeline__meta">
+              <p class="timeline__period">May 2025 — Present</p>
+              <p class="timeline__company">IBM Delivery Indonesia</p>
+            </div>
+            <div>
+              <h3 class="timeline__role">Application Developer</h3>
+              <p class="timeline__desc">Applying AI Engineering and enterprise quality practices within IBM's consulting practice.</p>
+              <ul class="timeline__bullets">
+                <li>Implemented IBM Ignite Quality Platform Plus (IQP+) — full lifecycle testing platform for end-to-end QA workflows</li>
+                <li>Applied AI Engineering and Vibe Coding using IBM Consulting Advantage and IBM Bob to accelerate delivery</li>
+                <li>Participated in enterprise training on ERP (Oracle) and CRM (Salesforce)</li>
+                <li>Contributed to AI-assisted development workflows leveraging LLMs for code generation and review</li>
+              </ul>
+              <span class="timeline__tag">Enterprise · AI Engineering · IQP+</span>
+            </div>
+          </li>
+
+          <li class="timeline__item reveal">
+            <div class="timeline__meta">
+              <p class="timeline__period">Jun 2022 — May 2025</p>
+              <p class="timeline__company">XSIS Mitra Utama</p>
+            </div>
+            <div>
+              <h3 class="timeline__role">Bootcamp Instructor &amp; Curriculum Developer</h3>
+              <p class="timeline__desc">Designed and delivered cohort programmes across five technical tracks.</p>
+              <ul class="timeline__bullets">
+                <li>Authored syllabi for Spring Boot, Kotlin Android, QA Automation, Next.js Fullstack, and .NET Core + Vue.js</li>
+                <li>Mentored engineers from fundamentals to production-ready mobile and backend development</li>
+                <li>Maintained curriculum to reflect evolving tooling and industry practices</li>
+              </ul>
+              <span class="timeline__tag">Spring Boot · Kotlin · Next.js · QA Automation</span>
+            </div>
+          </li>
+
+          <!-- 2020–2022 gap -->
+          <li class="timeline__gap reveal">
+            <div>
+              <p class="timeline__period" style="opacity:.55">Jun 2020 — Jun 2022</p>
+            </div>
+            <p class="timeline__gap-text">Independent period — freelance Android consulting, self-directed study in backend architecture and cloud tooling, and preparation for the next instructional phase.</p>
+          </li>
+
+          <li class="timeline__item reveal">
+            <div class="timeline__meta">
+              <p class="timeline__period">Nov 2018 — Jun 2020</p>
+              <p class="timeline__company">XSIS → PT Tri Adi Bersama</p>
+            </div>
+            <div>
+              <h3 class="timeline__role">Technical Consultant — Kotlin Android</h3>
+              <p class="timeline__desc">AnterAja logistics platform — B2B internal tooling and B2C consumer app on Google Play Store.</p>
+              <ul class="timeline__bullets">
+                <li>Architected cargo monitoring and COD applications from the ground up</li>
+                <li>Google Maps real-time shipment tracking; package label printing</li>
+                <li>Clean Code + MVVM; Unit Tests, Incremental Tests, SonarQube for code quality</li>
+              </ul>
+              <span class="timeline__tag">Kotlin · MVVM · Firebase · Google Maps · SonarQube</span>
+            </div>
+          </li>
+
+          <li class="timeline__item reveal">
+            <div class="timeline__meta">
+              <p class="timeline__period">Nov 2018 — Jun 2020</p>
+              <p class="timeline__company">XSIS → PT Sandika Cahaya Mandiri</p>
+            </div>
+            <div>
+              <h3 class="timeline__role">Technical Consultant — Java Android</h3>
+              <p class="timeline__desc">Core developer on liteBIG SuperApps — chat, social, marketplace, donation, and PPOB.</p>
+              <ul class="timeline__bullets">
+                <li>Built social media and marketplace modules from scratch</li>
+                <li>Led architectural migration from liteBIG Messenger to full SuperApp platform</li>
+                <li>XMPP secure messaging with E2E encryption (OMEMO, OTR, OpenPGP)</li>
+              </ul>
+              <span class="timeline__tag">Java · XMPP · OMEMO · SuperApp</span>
+            </div>
+          </li>
+
+          <li class="timeline__item reveal">
+            <div class="timeline__meta">
+              <p class="timeline__period">Sep 2018 — Nov 2018</p>
+              <p class="timeline__company">XSIS Mitra Utama</p>
+            </div>
+            <div>
+              <h3 class="timeline__role">Bootcamp Participant — Java Android</h3>
+              <p class="timeline__desc">Intensive Android development bootcamp covering the full mobile engineering stack.</p>
+              <ul class="timeline__bullets">
+                <li>Kotlin, Java, MVVM/MVI/MVP/MVC, reactive programming (Coroutines, RxJava, Flow)</li>
+                <li>Jetpack Compose, DI (Hilt/Koin), Firebase, Retrofit, Room</li>
+              </ul>
+              <span class="timeline__tag">Java · Kotlin · Android · Firebase</span>
+            </div>
+          </li>
+
+        </ol>
+      </div>
+    </section>
+
+    <!-- ─── SKILLS ────────────────────────────────────────────── -->
+    <section class="section section--tight" aria-labelledby="skills-head">
+      <div class="container">
+        <h2 id="skills-head" class="section__head reveal">Technical skills.</h2>
+        <div class="skills-grid">
+          <div class="skill-card reveal">
+            <p class="skill-card__label">Mobile</p>
+            <p class="skill-card__list">Kotlin · Java · Android SDK · Jetpack Compose · MVVM / MVI / MVP / MVC · Retrofit · OkHttp · Room · Coroutines · Flow · RxJava</p>
+          </div>
+          <div class="skill-card reveal" style="transition-delay:40ms">
+            <p class="skill-card__label">Backend &amp; Web</p>
+            <p class="skill-card__list">Spring Boot · Microservices · PostgreSQL · Message Brokers · .NET Core · Next.js · TypeScript · Vue.js · Thymeleaf</p>
+          </div>
+          <div class="skill-card reveal" style="transition-delay:80ms">
+            <p class="skill-card__label">Cloud &amp; DevOps</p>
+            <p class="skill-card__list">Firebase (Firestore · Auth · Analytics · Crashlytics · FCM) · Google Maps API · Docker · Google Play Services</p>
+          </div>
+          <div class="skill-card reveal" style="transition-delay:120ms">
+            <p class="skill-card__label">Enterprise &amp; AI</p>
+            <p class="skill-card__list">Salesforce CRM · Oracle ERP · Oracle APEX · IBM IQP+ · IBM Consulting Advantage · AI-assisted development</p>
+          </div>
+          <div class="skill-card reveal" style="transition-delay:160ms">
+            <p class="skill-card__label">Testing &amp; QA</p>
+            <p class="skill-card__list">JUnit · Espresso · JMeter · Postman · Katalon · SonarQube · Manual Testing · SDLC / STLC · Ktlint · LeakCanary</p>
+          </div>
+          <div class="skill-card reveal" style="transition-delay:200ms">
+            <p class="skill-card__label">Tools</p>
+            <p class="skill-card__list">Git · GitHub · Bitbucket · GitLab · Android Studio · IntelliJ IDEA · Visual Studio Code</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PROJECTS ──────────────────────────────────────────── -->
+    <section class="section" id="projects" aria-labelledby="projects-head">
+      <div class="container">
+        <h2 id="projects-head" class="section__head reveal">Selected work.</h2>
+        <div class="project-grid">
+
+          <article class="project-card reveal">
+            <svg class="project-card__diagram" viewBox="0 0 480 240" xmlns="http://www.w3.org/2000/svg" aria-label="liteBIG SuperApps architecture" role="img">
+              <rect width="480" height="240" fill="var(--color-paper-3)"/>
+              <rect x="20" y="24" width="82" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="61" y="44" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Chat / XMPP</text>
+              <rect x="116" y="24" width="82" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="157" y="44" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Social Feed</text>
+              <rect x="212" y="24" width="82" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="253" y="44" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Marketplace</text>
+              <rect x="308" y="24" width="82" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="349" y="44" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">PPOB / Donate</text>
+              <rect x="20" y="92" width="370" height="32" rx="4" fill="var(--color-accent-light)" stroke="var(--color-accent)" stroke-width="1"/>
+              <text x="205" y="112" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-accent)" text-anchor="middle">MVVM · Clean Architecture · DI (Hilt/Koin)</text>
+              <line x1="61" y1="56" x2="61" y2="92" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <line x1="157" y1="56" x2="157" y2="92" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <line x1="253" y1="56" x2="253" y2="92" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <line x1="349" y1="56" x2="349" y2="92" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <rect x="20" y="156" width="168" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="104" y="176" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Firebase · Retrofit · Room</text>
+              <rect x="204" y="156" width="186" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="297" y="176" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">XMPP · OMEMO · XEP-0313</text>
+              <line x1="104" y1="124" x2="104" y2="156" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <line x1="297" y1="124" x2="297" y2="156" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="20" y="218" font-family="JetBrains Mono,monospace" font-size="8" fill="var(--color-muted)">+ white-label variants for external clients</text>
+            </svg>
+            <div class="project-card__body">
+              <p class="project-card__meta">2018 – 2020 · Client work</p>
+              <h3 class="project-card__name">liteBIG SuperApps</h3>
+              <p class="project-card__desc">Multi-feature Android platform — XMPP E2E encrypted chat (OMEMO, OTR, OpenPGP), social timeline, marketplace, donation, and PPOB. Architected the migration from a messenger to a full SuperApp with white-label variants.</p>
+              <div class="project-card__tags">
+                <span class="tag">Java</span><span class="tag">XMPP</span><span class="tag">OMEMO</span><span class="tag">Marketplace</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" style="transition-delay:60ms">
+            <svg class="project-card__diagram" viewBox="0 0 480 240" xmlns="http://www.w3.org/2000/svg" aria-label="AnterAja logistics platform architecture" role="img">
+              <rect width="480" height="240" fill="var(--color-paper-3)"/>
+              <rect x="20" y="18" width="86" height="40" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="63" y="36" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">B2C App</text>
+              <text x="63" y="50" font-family="JetBrains Mono,monospace" font-size="8" fill="var(--color-muted)" text-anchor="middle">Google Play</text>
+              <rect x="120" y="18" width="86" height="40" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="163" y="36" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">B2B App</text>
+              <text x="163" y="50" font-family="JetBrains Mono,monospace" font-size="8" fill="var(--color-muted)" text-anchor="middle">Internal</text>
+              <rect x="220" y="18" width="100" height="40" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="270" y="40" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Cargo Monitor</text>
+              <rect x="334" y="18" width="86" height="40" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="377" y="40" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">COD App</text>
+              <rect x="96" y="94" width="280" height="32" rx="4" fill="var(--color-accent-light)" stroke="var(--color-accent)" stroke-width="1"/>
+              <text x="236" y="114" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-accent)" text-anchor="middle">Shared Android Artifact Libraries</text>
+              <line x1="63"  y1="58" x2="63"  y2="94" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <line x1="163" y1="58" x2="163" y2="94" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <line x1="270" y1="58" x2="270" y2="94" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <line x1="377" y1="58" x2="377" y2="94" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <rect x="20"  y="158" width="110" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="75"  y="178" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Google Maps API</text>
+              <rect x="148" y="158" width="110" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="203" y="178" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Firebase Analytics</text>
+              <rect x="276" y="158" width="100" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="326" y="178" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">MoEngage</text>
+              <line x1="236" y1="126" x2="236" y2="158" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="20" y="218" font-family="JetBrains Mono,monospace" font-size="8" fill="var(--color-muted)">Label printing · MVVM · SonarQube · Unit Tests</text>
+            </svg>
+            <div class="project-card__body">
+              <p class="project-card__meta">2018 – 2020 · Client work</p>
+              <h3 class="project-card__name">AnterAja Logistics Platform</h3>
+              <p class="project-card__desc">B2B + B2C logistics apps — real-time shipment tracking via Google Maps, package label printing, COD management, and cargo monitoring. Shared artifact libraries across all four apps.</p>
+              <div class="project-card__tags">
+                <span class="tag">Kotlin</span><span class="tag">MVVM</span><span class="tag">Google Maps</span><span class="tag">Firebase</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" style="transition-delay:120ms">
+            <svg class="project-card__diagram" viewBox="0 0 480 240" xmlns="http://www.w3.org/2000/svg" aria-label="IBM IQP+ platform diagram" role="img">
+              <rect width="480" height="240" fill="var(--color-paper-3)"/>
+              <rect x="20" y="24" width="80" height="36" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="60" y="46" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Planning</text>
+              <rect x="116" y="24" width="80" height="36" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="156" y="46" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Design</text>
+              <rect x="212" y="24" width="80" height="36" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="252" y="46" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Execution</text>
+              <rect x="308" y="24" width="80" height="36" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="348" y="46" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Reporting</text>
+              <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--color-accent)"/></marker></defs>
+              <line x1="100" y1="42" x2="116" y2="42" stroke="var(--color-accent)" stroke-width="1.5" marker-end="url(#arr)"/>
+              <line x1="196" y1="42" x2="212" y2="42" stroke="var(--color-accent)" stroke-width="1.5" marker-end="url(#arr)"/>
+              <line x1="292" y1="42" x2="308" y2="42" stroke="var(--color-accent)" stroke-width="1.5" marker-end="url(#arr)"/>
+              <rect x="80" y="100" width="308" height="36" rx="4" fill="var(--color-accent-light)" stroke="var(--color-accent)" stroke-width="1.5"/>
+              <text x="234" y="122" font-family="JetBrains Mono,monospace" font-size="9.5" fill="var(--color-accent)" text-anchor="middle" font-weight="500">IBM Ignite Quality Platform Plus (IQP+)</text>
+              <line x1="234" y1="60" x2="234" y2="100" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <rect x="20"  y="170" width="108" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="74"  y="190" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Oracle ERP</text>
+              <rect x="144" y="170" width="112" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="200" y="190" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Salesforce CRM</text>
+              <rect x="272" y="170" width="112" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="328" y="190" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Client Pipelines</text>
+              <line x1="234" y1="136" x2="234" y2="170" stroke="var(--color-rule-2)" stroke-width="1"/>
+            </svg>
+            <div class="project-card__body">
+              <p class="project-card__meta">2025 · IBM Delivery Indonesia</p>
+              <h3 class="project-card__name">IBM IQP+ Quality Platform</h3>
+              <p class="project-card__desc">Implementation of IBM Ignite Quality Platform Plus — a full lifecycle testing platform supporting end-to-end QA workflows across Oracle ERP, Salesforce CRM, and client delivery pipelines.</p>
+              <div class="project-card__tags">
+                <span class="tag">IBM</span><span class="tag">QA Platform</span><span class="tag">Enterprise</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" style="transition-delay:180ms">
+            <svg class="project-card__diagram" viewBox="0 0 480 240" xmlns="http://www.w3.org/2000/svg" aria-label="Bootcamp curriculum tracks" role="img">
+              <rect width="480" height="240" fill="var(--color-paper-3)"/>
+              <rect x="20"  y="24" width="84" height="32" rx="4" fill="var(--color-accent-light)" stroke="var(--color-accent)" stroke-width="1"/>
+              <text x="62"  y="44" font-family="JetBrains Mono,monospace" font-size="8.5" fill="var(--color-accent)" text-anchor="middle">Spring Boot</text>
+              <rect x="118" y="24" width="84" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="160" y="44" font-family="JetBrains Mono,monospace" font-size="8.5" fill="var(--color-neutral)" text-anchor="middle">Kotlin Android</text>
+              <rect x="216" y="24" width="84" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="258" y="44" font-family="JetBrains Mono,monospace" font-size="8.5" fill="var(--color-neutral)" text-anchor="middle">QA Automation</text>
+              <rect x="314" y="24" width="84" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="356" y="44" font-family="JetBrains Mono,monospace" font-size="8.5" fill="var(--color-neutral)" text-anchor="middle">Next.js + TS</text>
+              <rect x="118" y="90" width="84" height="32" rx="4" fill="none" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="160" y="110" font-family="JetBrains Mono,monospace" font-size="8.5" fill="var(--color-neutral)" text-anchor="middle">.NET + Vue.js</text>
+              <rect x="20" y="156" width="370" height="36" rx="4" fill="var(--color-paper-2)" stroke="var(--color-rule-2)" stroke-width="1"/>
+              <text x="205" y="178" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--color-neutral)" text-anchor="middle">Syllabus → Mentoring → Hands-on project delivery</text>
+              <line x1="62"  y1="56" x2="62"  y2="156" stroke="var(--color-rule-2)" stroke-width="1" stroke-dasharray="3 2"/>
+              <line x1="160" y1="56" x2="160" y2="90"  stroke="var(--color-rule-2)" stroke-width="1" stroke-dasharray="3 2"/>
+              <line x1="160" y1="122" x2="160" y2="156" stroke="var(--color-rule-2)" stroke-width="1" stroke-dasharray="3 2"/>
+              <line x1="258" y1="56" x2="258" y2="156" stroke="var(--color-rule-2)" stroke-width="1" stroke-dasharray="3 2"/>
+              <line x1="356" y1="56" x2="356" y2="156" stroke="var(--color-rule-2)" stroke-width="1" stroke-dasharray="3 2"/>
+            </svg>
+            <div class="project-card__body">
+              <p class="project-card__meta">2022 – 2025 · XSIS Mitra Utama</p>
+              <h3 class="project-card__name">Bootcamp Curriculum (5 tracks)</h3>
+              <p class="project-card__desc">End-to-end syllabi for Spring Boot, Kotlin Android, QA Automation, Next.js + TypeScript, and .NET Core + Vue.js — from theory through architecture to hands-on project delivery.</p>
+              <div class="project-card__tags">
+                <span class="tag">Spring Boot</span><span class="tag">Kotlin</span><span class="tag">Next.js</span><span class="tag">.NET</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── EDUCATION ─────────────────────────────────────────── -->
+    <section class="section section--tight" aria-labelledby="edu-head">
+      <div class="container">
+        <h2 id="edu-head" class="section__head reveal">Education.</h2>
+        <div class="timeline__item reveal" style="border-top: var(--rule);">
+          <div class="timeline__meta">
+            <p class="timeline__period">Graduated 2018</p>
+            <p class="timeline__company">Yogyakarta State University</p>
+          </div>
+          <div>
+            <h3 class="timeline__role" style="font-size: var(--text-lg);">Bachelor's in Mathematics Education</h3>
+            <p class="timeline__desc" style="margin-bottom:0">38 courses — Calculus, Linear Algebra, Discrete Mathematics, Numerical Methods, Statistics, Abstract Algebra, Operations Research, and Computer Programming.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CERTIFICATION ────────────────────────────────────── -->
+    <section class="section section--tight" aria-labelledby="cert-head">
+      <div class="container">
+        <h2 id="cert-head" class="section__head reveal">Certification.</h2>
+        <div class="cert-card reveal">
+          <div>
+            <div class="cert-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 2L12.4 7.2L18 8.1L14 12L15 17.5L10 15L5 17.5L6 12L2 8.1L7.6 7.2L10 2Z" stroke="var(--color-accent)" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="cert-card__name">Oracle APEX Cloud Developer Professional</h3>
+            <p class="cert-card__issuer">Oracle — Active · Validates expertise in building secure, scalable, AI-powered low-code enterprise applications.</p>
+          </div>
+          <a class="cert-card__badge" href="https://catalog-education.oracle.com/ords/certview/sharebadge?id=E7864A821E23BCEA13AFD2F2B29D56E71BB66ADCB8F6CFDA6262E4D623D96541" target="_blank" rel="noopener" aria-label="View Oracle APEX badge">View badge ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CONTACT ───────────────────────────────────────────── -->
+    <section class="section" id="contact" aria-labelledby="contact-head">
+      <div class="container">
+        <h2 id="contact-head" class="section__head reveal">Let's talk.</h2>
+        <p class="section__sub reveal">Open to new roles in Android development, backend engineering, and AI-augmented delivery. Yogyakarta-based; open to remote.</p>
+        <div class="contact-grid">
+          <a class="contact-item reveal" href="mailto:yuhananda.aditama.tech@gmail.com">
+            <span class="contact-item__label">Email</span>
+            <span class="contact-item__value">yuhananda.aditama.tech@gmail.com</span>
+          </a>
+          <a class="contact-item reveal" href="https://linkedin.com/in/yuhanadit" target="_blank" rel="noopener">
+            <span class="contact-item__label">LinkedIn</span>
+            <span class="contact-item__value">linkedin.com/in/yuhanadit</span>
+          </a>
+          <a class="contact-item reveal" href="https://github.com/yuhanadit-tech" target="_blank" rel="noopener">
+            <span class="contact-item__label">GitHub</span>
+            <span class="contact-item__value">github.com/yuhanadit-tech</span>
+          </a>
+          <a class="contact-item reveal" href="tel:+628579926152">
+            <span class="contact-item__label">Phone</span>
+            <span class="contact-item__value">+62 857 9926 1521</span>
+          </a>
+          <div class="contact-item reveal" style="cursor:default">
+            <span class="contact-item__label">Location</span>
+            <span class="contact-item__value">Yogyakarta, Indonesia</span>
+          </div>
+          <a class="contact-item reveal" href="assets/yuhananda-aditama-cv.pdf" target="_blank" rel="noopener">
+            <span class="contact-item__label">Resume</span>
+            <span class="contact-item__value">Download CV ↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── FOOTER — Ft2 Inline single line ─────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <span class="footer__name">Yuhananda Aditama</span>
+        <ul class="footer__links" aria-label="Footer links">
+          <li><a href="mailto:yuhananda.aditama.tech@gmail.com">Email</a></li>
+          <li><a href="https://linkedin.com/in/yuhanadit" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/yuhanadit-tech" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+        <p class="footer__meta">Yogyakarta, Indonesia · © 2025</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Reveal on scroll — IntersectionObserver -->
+  <script>
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!window.IntersectionObserver) {
+        els.forEach(function(el){ el.classList.add('is-in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.08 });
+      els.forEach(function(el){ io.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
