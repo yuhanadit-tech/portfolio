@@ -51,10 +51,12 @@
     }
 
     /* ─── NAV — N1b canonical SaaS bar ──────────────────────────── */
-    .nav {
+    header[role="banner"] {
       position: sticky;
       top: 0;
       z-index: var(--z-sticky);
+    }
+    .nav {
       background: oklch(98.5% 0.004 250 / 0.92);
       backdrop-filter: blur(12px);
       border-bottom: var(--rule);
