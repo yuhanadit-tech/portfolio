@@ -89,6 +89,25 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* ─── Skip to content ───────────────────────────────────────── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--space-md);
+      z-index: calc(var(--z-sticky) + 1);
+      background: var(--color-accent);
+      color: var(--color-accent-ink);
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      padding: var(--space-xs) var(--space-lg);
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      text-decoration: none;
+      transition: top var(--dur-micro) var(--ease-out);
+    }
+    .skip-link:focus { top: 0; }
+    .skip-link:focus-visible { outline: 2px solid var(--color-accent-ink); outline-offset: -3px; }
+
     /* ─── Reveal animation ───────────────────────────────────────── */
     .reveal {
       opacity: 0;
@@ -938,12 +957,14 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
   <!-- ─── NAV ─────────────────────────────────────────────────── -->
   <header role="banner">
     <nav class="nav" aria-label="Primary navigation">
       <div class="container">
         <div class="nav__inner">
-          <a class="nav__wordmark" href="#top" aria-label="Yuhananda Aditama — home">yuhanadit.</a>
+          <a class="nav__wordmark" href="#main-content" aria-label="Yuhananda Aditama — home">yuhanadit.</a>
           <ul class="nav__links" id="nav-links" role="list">
             <li><a class="nav__link" href="#work">Work</a></li>
             <li><a class="nav__link" href="#projects">Projects</a></li>
@@ -963,7 +984,7 @@
     </nav>
   </header>
 
-  <main id="top">
+  <main id="main-content">
 
     <!-- ─── HERO ─────────────────────────────────────────────── -->
     <section class="hero" aria-labelledby="hero-name">
