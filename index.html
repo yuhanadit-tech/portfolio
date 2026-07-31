@@ -677,24 +677,33 @@
       z-index: 2;
     }
     .carousel__dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .carousel__dot::before {
+      content: "";
+      display: block;
       width: 6px;
       height: 6px;
       border-radius: 50%;
       background: oklch(20% 0.020 258 / 0.25);
-      border: none;
-      /* Larger tap target via padding — visually 6px, touch area ~20×20px */
-      padding: 7px;
-      background-clip: content-box;
-      cursor: pointer;
       transition: background var(--dur-micro) var(--ease-out),
                   transform var(--dur-micro) var(--ease-out);
     }
-    .carousel__dot.is-active {
+    .carousel__dot.is-active::before {
       background: var(--color-accent);
-      background-clip: content-box;
       transform: scale(1.3);
     }
-    .carousel__dot:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+    .carousel__dot:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; border-radius: var(--radius-sm); }
 
     /* ─── LIGHTBOX ───────────────────────────────────────────────── */
     .lightbox {
@@ -1187,9 +1196,9 @@
             <!-- Carousel: add more <img> tags here to add slides -->
             <div class="carousel" role="region" aria-label="liteBIG SuperApps screenshots">
               <div class="carousel__track">
-                <img src="assets/litebig-superapps1.png" alt="liteBIG SuperApps — multi-feature Android SuperApp with chat, social, and marketplace">
-                <img src="assets/litebig-superapps2.png" alt="liteBIG SuperApps — XMPP encrypted messaging with OMEMO end-to-end encryption" loading="lazy">
-                <img src="assets/litebig-superapps3.jpg" alt="liteBIG SuperApps — social timeline and marketplace modules" loading="lazy">
+                <img src="assets/litebig-superapps1.webp" alt="liteBIG SuperApps — multi-feature Android SuperApp with chat, social, and marketplace">
+                <img src="assets/litebig-superapps2.webp" alt="liteBIG SuperApps — XMPP encrypted messaging with OMEMO end-to-end encryption" loading="lazy">
+                <img src="assets/litebig-superapps3.webp" alt="liteBIG SuperApps — social timeline and marketplace modules" loading="lazy">
               </div>
               <button class="carousel__btn carousel__btn--prev" aria-label="Previous slide" disabled>&#8249;</button>
               <button class="carousel__btn carousel__btn--next" aria-label="Next slide">&#8250;</button>
@@ -1209,8 +1218,8 @@
             <!-- Carousel: add more <img> tags here to add slides -->
             <div class="carousel" role="region" aria-label="AnterAja logistics platform screenshots">
               <div class="carousel__track">
-                <img src="assets/anteraja1.jpg" alt="AnterAja — B2C consumer logistics app with real-time shipment tracking on Google Play Store">
-                <img src="assets/anteraja2.png" alt="AnterAja — B2B internal logistics app with cargo monitoring and COD management" loading="lazy">
+                <img src="assets/anteraja1.webp" alt="AnterAja — B2C consumer logistics app with real-time shipment tracking on Google Play Store">
+                <img src="assets/anteraja2.webp" alt="AnterAja — B2B internal logistics app with cargo monitoring and COD management" loading="lazy">
               </div>
               <button class="carousel__btn carousel__btn--prev" aria-label="Previous slide" disabled>&#8249;</button>
               <button class="carousel__btn carousel__btn--next" aria-label="Next slide">&#8250;</button>
@@ -1230,7 +1239,7 @@
             <!-- Single image — add more <img> tags inside .carousel__track to enable carousel -->
             <div class="carousel" role="region" aria-label="IBM IQP+ platform screenshot">
               <div class="carousel__track">
-                <img src="assets/ibm-iqp.png" alt="IBM Ignite Quality Platform Plus — full lifecycle QA testing platform for enterprise delivery pipelines">
+                <img src="assets/ibm-iqp.webp" alt="IBM Ignite Quality Platform Plus — full lifecycle QA testing platform for enterprise delivery pipelines">
               </div>
               <button class="carousel__btn carousel__btn--prev" aria-label="Previous slide" disabled>&#8249;</button>
               <button class="carousel__btn carousel__btn--next" aria-label="Next slide" disabled>&#8250;</button>
@@ -1250,10 +1259,10 @@
             <!-- Carousel: add more <img> tags here to add slides -->
             <div class="carousel" role="region" aria-label="Bootcamp curriculum screenshots">
               <div class="carousel__track">
-                <img src="assets/bootcamp-springboot.png" alt="XSIS Bootcamp — Spring Boot backend curriculum with PostgreSQL, microservices and Thymeleaf">
-                <img src="assets/bootcamp-android.png" alt="XSIS Bootcamp — Kotlin Android curriculum with Jetpack Compose and MVVM architecture" loading="lazy">
-                <img src="assets/bootcamp-qa.png" alt="XSIS Bootcamp — QA Automation curriculum with JMeter, Postman and Katalon" loading="lazy">
-                <img src="assets/bootcamp-nextjs.png" alt="XSIS Bootcamp — Next.js and TypeScript fullstack curriculum" loading="lazy">
+                <img src="assets/bootcamp-springboot.webp" alt="XSIS Bootcamp — Spring Boot backend curriculum with PostgreSQL, microservices and Thymeleaf">
+                <img src="assets/bootcamp-android.webp" alt="XSIS Bootcamp — Kotlin Android curriculum with Jetpack Compose and MVVM architecture" loading="lazy">
+                <img src="assets/bootcamp-qa.webp" alt="XSIS Bootcamp — QA Automation curriculum with JMeter, Postman and Katalon" loading="lazy">
+                <img src="assets/bootcamp-nextjs.webp" alt="XSIS Bootcamp — Next.js and TypeScript fullstack curriculum" loading="lazy">
                 <img src="assets/bootcamp-netvue.webp" alt="XSIS Bootcamp — .NET Core backend and Vue.js frontend curriculum" loading="lazy">
               </div>
               <button class="carousel__btn carousel__btn--prev" aria-label="Previous slide" disabled>&#8249;</button>
