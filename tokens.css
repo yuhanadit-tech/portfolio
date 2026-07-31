@@ -1,7 +1,7 @@
 /*
  * Hallmark · genre: modern-minimal · macrostructure: Split Studio
  * theme: Cobalt · tone: technical · anchor hue: 256 (electric cobalt)
- * nav: N1b canonical SaaS bar · footer: Ft2 Inline single line
+ * nav: N5 Floating pill · footer: Ft2 Inline single line
  * enrichment: code card (Tier A — pure CSS/HTML)
  * Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5
  */
@@ -25,6 +25,26 @@
   --color-focus:        oklch(58%   0.22  256);   /* focus ring */
   --color-ok:           oklch(60%   0.14  160);   /* 200 OK chip */
   --color-ok-bg:        oklch(95%   0.05  160);
+
+  /* ─── Derived surfaces (alpha) ──────────────────────────────── */
+  --color-nav-bg:       oklch(98.5% 0.004 250 / 0.88);  /* pill nav backdrop */
+  --color-nav-bg-open:  oklch(98.5% 0.004 250 / 0.98);  /* mobile drawer */
+  --color-shadow-scroll: oklch(20%  0.018 258 / 0.08);  /* nav scroll shadow */
+  --color-shadow-card:   oklch(58%  0.20  256 / 0.08);  /* project card hover */
+  --color-lightbox-bg:   oklch(10%  0.010 258 / 0.92);  /* lightbox overlay */
+  --color-lightbox-close-bg:  oklch(98.5% 0.004 250 / 0.12); /* close btn */
+  --color-lightbox-close-bg-hover: oklch(98.5% 0.004 250 / 0.22);
+  --color-lightbox-close-border:   oklch(100% 0 0 / 0.15);
+  --color-lightbox-close-ink:      oklch(95%  0.004 250);
+  --color-dot-inactive:  oklch(20%  0.020 258 / 0.25);  /* carousel dot */
+
+  /* ─── Code card token colours ────────────────────────────────── */
+  --color-tok-comment:  oklch(45%   0.010 254);
+  --color-tok-str:      oklch(72%   0.12  160);
+  --color-tok-fn:       oklch(78%   0.10   56);
+  --color-tok-muted:    oklch(55%   0.010 254);
+  --color-tok-white:    oklch(90%   0.006 252);
+  --color-tok-filename: oklch(50%   0.010 254);
 
   /* ─── Typography — Space Grotesk · Inter · JetBrains Mono ──── */
   --font-display:       "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
