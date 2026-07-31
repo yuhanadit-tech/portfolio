@@ -108,16 +108,17 @@
     .skip-link:focus { top: 0; }
     .skip-link:focus-visible { outline: 2px solid var(--color-accent-ink); outline-offset: -3px; }
 
-    /* ─── Reveal animation ───────────────────────────────────────── */
-    .reveal {
+    /* ─── Reveal animation — hero children only ──────────────────── */
+    .hero .reveal {
       opacity: 0;
       transform: translateY(10px);
       transition: opacity var(--dur-reveal) var(--ease-out),
                   transform var(--dur-reveal) var(--ease-out);
     }
-    .reveal.is-in { opacity: 1; transform: none; }
+    .hero .reveal.is-in { opacity: 1; transform: none; }
+    .reveal--delayed { transition-delay: var(--dur-stagger); }
     @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1; transform: none; transition: none; }
+      .hero .reveal { opacity: 1; transform: none; transition: none; }
     }
 
     /* ─── Layout ─────────────────────────────────────────────────── */
@@ -387,7 +388,7 @@
       filter: grayscale(5%);
     }
     @media (max-width: 59.9rem) {
-      .hero__right { max-width: 100%; align-items: center; }
+      .hero__right { max-width: 100%; align-items: flex-start; }
       .hero__photo-wrap { width: auto; }
       .hero__photo {
         width: 160px;
@@ -464,6 +465,7 @@
      * Intentional rhythm variation — not every section breathes the same.
      * Base:        padding-block: var(--space-3xl)  (72px)
      * Tight:       padding-block: var(--space-2xl)  (48px)
+     * Wide:        padding-block: var(--space-4xl)  (96px) — Experience
      * Collapsed:   padding-block-start on a section that follows a related
      *              section — Education + Certification run close together.
      * ──────────────────────────────────────────────────────────── */
@@ -472,6 +474,7 @@
       border-bottom: var(--rule);
     }
     .section--tight { padding-block: var(--space-2xl); }
+    .section--wide  { padding-block: var(--space-4xl); }
     /* Education → Certification: collapse the gap between them */
     .section--flush-top { padding-block-start: var(--space-lg); }
     /* Contact: extra breath before the closing section */
@@ -673,6 +676,23 @@
       background: var(--color-paper-3);
       border-bottom: var(--rule);
     }
+    /* Zoom affordance badge — always visible, not hover-only */
+    .carousel__zoom-hint {
+      position: absolute;
+      bottom: var(--space-sm);
+      right: var(--space-sm);
+      z-index: 3;
+      background: var(--color-nav-bg);
+      border: var(--rule-strong);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-neutral);
+      padding: 2px 6px;
+      pointer-events: none;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
     .carousel__track {
       display: flex;
       height: 100%;
@@ -688,6 +708,10 @@
       cursor: zoom-in;
       user-select: none;
       -webkit-user-drag: none;
+    }
+    .carousel__track img:focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: -3px;
     }
     .carousel__btn {
       position: absolute;
@@ -823,6 +847,17 @@
       border-radius: var(--radius-sm);
       padding: 1px var(--space-sm);
       white-space: nowrap;
+    }
+
+    /* ─── EDUCATION (standalone timeline item) ───────────────────── */
+    .timeline__item--standalone {
+      border-top: var(--rule);
+    }
+    .timeline__item--standalone .timeline__role {
+      font-size: var(--text-lg);
+    }
+    .timeline__item--standalone .timeline__desc {
+      margin-bottom: 0;
     }
 
     /* ─── CERTIFICATION ──────────────────────────────────────────── */
@@ -1026,7 +1061,7 @@
           </div>
 
           <!-- Right: photo + code card -->
-          <div class="hero__right reveal" style="transition-delay:100ms">
+          <div class="hero__right reveal reveal--delayed">
             <div class="hero__photo-wrap">
               <img
                 class="hero__photo"
@@ -1094,7 +1129,7 @@
     </section>
 
     <!-- ─── EXPERIENCE ────────────────────────────────────────── -->
-    <section class="section" id="work" aria-labelledby="exp-head">
+    <section class="section section--wide" id="work" aria-labelledby="exp-head">
       <div class="container">
         <h2 id="exp-head" class="section__head">Work experience.</h2>
         <ol class="timeline" reversed>
@@ -1106,7 +1141,7 @@
             </div>
             <div>
               <h3 class="timeline__role">Application Developer</h3>
-              <p class="timeline__desc">Applying AI Engineering and enterprise quality practices within IBM's consulting practice.</p>
+              <p class="timeline__desc">Applying AI Engineering and enterprise quality practices within IBM&rsquo;s consulting practice.</p>
               <ul class="timeline__bullets">
                 <li>Implemented IBM Ignite Quality Platform Plus (IQP+) — full lifecycle testing platform for end-to-end QA workflows</li>
                 <li>Applied AI Engineering and Vibe Coding using IBM Consulting Advantage and IBM Bob to accelerate delivery</li>
@@ -1239,13 +1274,14 @@
             <!-- Carousel: add more <img> tags here to add slides -->
             <div class="carousel" role="region" aria-label="liteBIG SuperApps screenshots">
               <div class="carousel__track">
-                <img src="assets/litebig-superapps1.webp" alt="liteBIG SuperApps — multi-feature Android SuperApp with chat, social, and marketplace">
-                <img src="assets/litebig-superapps2.webp" alt="liteBIG SuperApps — XMPP encrypted messaging with OMEMO end-to-end encryption" loading="lazy">
-                <img src="assets/litebig-superapps3.webp" alt="liteBIG SuperApps — social timeline and marketplace modules" loading="lazy">
+                <img src="assets/litebig-superapps1.webp" alt="liteBIG SuperApps — multi-feature Android SuperApp with chat, social, and marketplace" tabindex="0">
+                <img src="assets/litebig-superapps2.webp" alt="liteBIG SuperApps — XMPP encrypted messaging with OMEMO end-to-end encryption" loading="lazy" tabindex="0">
+                <img src="assets/litebig-superapps3.webp" alt="liteBIG SuperApps — social timeline and marketplace modules" loading="lazy" tabindex="0">
               </div>
               <button class="carousel__btn carousel__btn--prev" aria-label="Previous slide" disabled>&#8249;</button>
               <button class="carousel__btn carousel__btn--next" aria-label="Next slide">&#8250;</button>
-              <div class="carousel__dots" aria-hidden="true"></div>
+              <div class="carousel__dots"></div>
+              <span class="carousel__zoom-hint" aria-hidden="true">zoom ↗</span>
             </div>
             <div class="project-card__body">
               <p class="project-card__meta">2018 – 2020 · SuperApp</p>
@@ -1261,12 +1297,13 @@
             <!-- Carousel: add more <img> tags here to add slides -->
             <div class="carousel" role="region" aria-label="AnterAja logistics platform screenshots">
               <div class="carousel__track">
-                <img src="assets/anteraja1.webp" alt="AnterAja — B2C consumer logistics app with real-time shipment tracking on Google Play Store">
-                <img src="assets/anteraja2.webp" alt="AnterAja — B2B internal logistics app with cargo monitoring and COD management" loading="lazy">
+                <img src="assets/anteraja1.webp" alt="AnterAja — B2C consumer logistics app with real-time shipment tracking on Google Play Store" loading="lazy" tabindex="0">
+                <img src="assets/anteraja2.webp" alt="AnterAja — B2B internal logistics app with cargo monitoring and COD management" loading="lazy" tabindex="0">
               </div>
               <button class="carousel__btn carousel__btn--prev" aria-label="Previous slide" disabled>&#8249;</button>
               <button class="carousel__btn carousel__btn--next" aria-label="Next slide">&#8250;</button>
-              <div class="carousel__dots" aria-hidden="true"></div>
+              <div class="carousel__dots"></div>
+              <span class="carousel__zoom-hint" aria-hidden="true">zoom ↗</span>
             </div>
             <div class="project-card__body">
               <p class="project-card__meta">2020 – 2022 · Logistics</p>
@@ -1282,11 +1319,12 @@
             <!-- Single image — add more <img> tags inside .carousel__track to enable carousel -->
             <div class="carousel" role="region" aria-label="IBM IQP+ platform screenshot">
               <div class="carousel__track">
-                <img src="assets/ibm-iqp.webp" alt="IBM Ignite Quality Platform Plus — full lifecycle QA testing platform for enterprise delivery pipelines">
+                <img src="assets/ibm-iqp.webp" alt="IBM Ignite Quality Platform Plus — full lifecycle QA testing platform for enterprise delivery pipelines" loading="lazy" tabindex="0">
               </div>
               <button class="carousel__btn carousel__btn--prev" aria-label="Previous slide" disabled>&#8249;</button>
               <button class="carousel__btn carousel__btn--next" aria-label="Next slide" disabled>&#8250;</button>
-              <div class="carousel__dots" aria-hidden="true"></div>
+              <div class="carousel__dots"></div>
+              <span class="carousel__zoom-hint" aria-hidden="true">zoom ↗</span>
             </div>
             <div class="project-card__body">
               <p class="project-card__meta">2025 · IBM Delivery Indonesia</p>
@@ -1302,15 +1340,16 @@
             <!-- Carousel: add more <img> tags here to add slides -->
             <div class="carousel" role="region" aria-label="Bootcamp curriculum screenshots">
               <div class="carousel__track">
-                <img src="assets/bootcamp-springboot.webp" alt="XSIS Bootcamp — Spring Boot backend curriculum with PostgreSQL, microservices and Thymeleaf">
-                <img src="assets/bootcamp-android.webp" alt="XSIS Bootcamp — Kotlin Android curriculum with Jetpack Compose and MVVM architecture" loading="lazy">
-                <img src="assets/bootcamp-qa.webp" alt="XSIS Bootcamp — QA Automation curriculum with JMeter, Postman and Katalon" loading="lazy">
-                <img src="assets/bootcamp-nextjs.webp" alt="XSIS Bootcamp — Next.js and TypeScript fullstack curriculum" loading="lazy">
-                <img src="assets/bootcamp-netvue.webp" alt="XSIS Bootcamp — .NET Core backend and Vue.js frontend curriculum" loading="lazy">
+                <img src="assets/bootcamp-springboot.webp" alt="XSIS Bootcamp — Spring Boot backend curriculum with PostgreSQL, microservices and Thymeleaf" loading="lazy" tabindex="0">
+                <img src="assets/bootcamp-android.webp" alt="XSIS Bootcamp — Kotlin Android curriculum with Jetpack Compose and MVVM architecture" loading="lazy" tabindex="0">
+                <img src="assets/bootcamp-qa.webp" alt="XSIS Bootcamp — QA Automation curriculum with JMeter, Postman and Katalon" loading="lazy" tabindex="0">
+                <img src="assets/bootcamp-nextjs.webp" alt="XSIS Bootcamp — Next.js and TypeScript fullstack curriculum" loading="lazy" tabindex="0">
+                <img src="assets/bootcamp-netvue.webp" alt="XSIS Bootcamp — .NET Core backend and Vue.js frontend curriculum" loading="lazy" tabindex="0">
               </div>
               <button class="carousel__btn carousel__btn--prev" aria-label="Previous slide" disabled>&#8249;</button>
               <button class="carousel__btn carousel__btn--next" aria-label="Next slide">&#8250;</button>
-              <div class="carousel__dots" aria-hidden="true"></div>
+              <div class="carousel__dots"></div>
+              <span class="carousel__zoom-hint" aria-hidden="true">zoom ↗</span>
             </div>
             <div class="project-card__body">
               <p class="project-card__meta">2022 – 2025 · XSIS Mitra Utama</p>
@@ -1330,14 +1369,14 @@
     <section class="section section--tight section--flush-top" aria-labelledby="edu-head">
       <div class="container">
         <h2 id="edu-head" class="section__head">Education.</h2>
-        <div class="timeline__item" style="border-top: var(--rule);">
+        <div class="timeline__item timeline__item--standalone">
           <div class="timeline__meta">
             <p class="timeline__period">Graduated 2018</p>
             <p class="timeline__company">Yogyakarta State University</p>
           </div>
           <div>
-            <h3 class="timeline__role" style="font-size: var(--text-lg);">Bachelor's in Mathematics Education</h3>
-            <p class="timeline__desc" style="margin-bottom:0">38 courses — Calculus, Linear Algebra, Discrete Mathematics, Numerical Methods, Statistics, Abstract Algebra, Operations Research, and Computer Programming.</p>
+            <h3 class="timeline__role timeline__item--standalone">Bachelor&rsquo;s in Mathematics Education</h3>
+            <p class="timeline__desc timeline__item--standalone">38 courses — Calculus, Linear Algebra, Discrete Mathematics, Numerical Methods, Statistics, Abstract Algebra, Operations Research, and Computer Programming.</p>
           </div>
         </div>
       </div>
@@ -1362,10 +1401,10 @@
       </div>
     </section>
 
-    <!-- ─── CONTACT ───────���───────────────────────────────────── -->
+    <!-- ─── CONTACT ──────────────────────────────────────────── -->
     <section class="section section--open" id="contact" aria-labelledby="contact-head">
       <div class="container">
-        <h2 id="contact-head" class="section__head">Let's talk.</h2>
+        <h2 id="contact-head" class="section__head">Let&rsquo;s talk.</h2>
         <p class="section__sub">Open to new roles in Android development, backend engineering, and AI-augmented delivery. Yogyakarta-based; open to remote.</p>
         <div class="contact-grid">
           <a class="contact-item" href="mailto:yuhananda.aditama.tech@gmail.com">
@@ -1380,14 +1419,14 @@
             <span class="contact-item__label">GitHub</span>
             <span class="contact-item__value">github.com/yuhanadit-tech</span>
           </a>
-          <a class="contact-item" href="https://wa.me/628579926152" target="_blank" rel="noopener">
+          <a class="contact-item" href="https://wa.me/6285799261521" target="_blank" rel="noopener">
             <span class="contact-item__label">WhatsApp</span>
             <span class="contact-item__value">+62 857 9926 1521 ↗</span>
           </a>
-          <div class="contact-item" style="cursor:default">
+          <a class="contact-item" href="https://maps.google.com/?q=Yogyakarta,+Indonesia" target="_blank" rel="noopener">
             <span class="contact-item__label">Location</span>
-            <span class="contact-item__value">Yogyakarta, Indonesia</span>
-          </div>
+            <span class="contact-item__value">Yogyakarta, Indonesia ↗</span>
+          </a>
           <a class="contact-item" href="assets/yuhananda-aditama-cv.pdf" target="_blank" rel="noopener">
             <span class="contact-item__label">Resume</span>
             <span class="contact-item__value">Download CV ↗</span>
@@ -1491,8 +1530,11 @@
         }
       });
 
-      /* ── Reveal on scroll ─────────────────────────────────────── */
-      var els = document.querySelectorAll('.reveal');
+      /* ── Reveal on scroll — hero children only ───────────────────
+       * Only the two hero columns animate in; everything else is
+       * just there. One orchestrated entrance, then the page settles.
+       * ─────────────────────────────────────────────────────────── */
+      var els = document.querySelectorAll('.hero .reveal');
       if (window.IntersectionObserver) {
         var io = new IntersectionObserver(function(entries) {
           entries.forEach(function(e) {

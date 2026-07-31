@@ -80,6 +80,7 @@
   --dur-micro:          120ms;
   --dur-short:          200ms;
   --dur-reveal:         600ms;
+  --dur-stagger:        100ms;
 
   /* ─── Radii — "drawn with a ruler" ──────────────────────────── */
   --radius-sm:          4px;
