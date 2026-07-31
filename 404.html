@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>404 — Page not found · yuhananda.dev</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: clip; font-size: 16px; }
+    body {
+      overflow-x: clip;
+      background: var(--color-paper);
+      color: var(--color-ink-2);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-2xl) clamp(1rem, 4vw, 2.5rem);
+      text-align: center;
+    }
+
+    .code {
+      font-family: var(--font-mono);
+      font-size: clamp(5rem, 20vw, 9rem);
+      font-weight: 400;
+      letter-spacing: -0.04em;
+      color: var(--color-rule-2);
+      line-height: 1;
+      margin-bottom: var(--space-lg);
+      user-select: none;
+    }
+    .code span { color: var(--color-accent); }
+
+    .heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw + 0.5rem, 2.25rem);
+      font-weight: 700;
+      font-style: normal;
+      letter-spacing: -0.025em;
+      color: var(--color-ink);
+      margin-bottom: var(--space-md);
+    }
+
+    .lede {
+      font-size: var(--text-base);
+      color: var(--color-neutral);
+      max-width: 40ch;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      justify-content: center;
+    }
+
+    .btn-primary {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-accent-ink);
+      background: var(--color-accent);
+      border: none;
+      border-radius: var(--radius-md);
+      padding: var(--space-xs) var(--space-lg);
+      text-decoration: none;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      transition: opacity 120ms ease, transform 120ms ease;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-primary:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+
+    .btn-outline {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-ink);
+      border: 1px solid var(--color-rule-2);
+      border-radius: var(--radius-md);
+      padding: var(--space-xs) var(--space-lg);
+      text-decoration: none;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      transition: border-color 120ms ease, transform 120ms ease;
+    }
+    .btn-outline:hover { border-color: var(--color-ink); transform: translateY(-1px); }
+    .btn-outline:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+
+    .footer {
+      position: fixed;
+      bottom: var(--space-xl);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="code">4<span>0</span>4</p>
+  <h1 class="heading">Page not found.</h1>
+  <p class="lede">The URL you followed doesn't exist — it may have moved or never existed.</p>
+  <div class="actions">
+    <a class="btn-primary" href="/">Back to home</a>
+    <a class="btn-outline" href="/#contact">Get in touch</a>
+  </div>
+
+  <p class="footer">yuhananda.dev</p>
+
+</body>
+</html>
