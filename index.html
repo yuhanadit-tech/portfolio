@@ -884,6 +884,9 @@
     .footer__links a:hover { color: var(--color-accent); }
     .footer__links a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; border-radius: 2px; }
   </style>
+
+  <!-- Vercel Web Analytics -->
+  <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </head>
 <body>
 
@@ -1326,12 +1329,6 @@
     <img class="lightbox__img" id="lightbox-img" src="" alt="">
   </div>
 
-  <!-- Vercel Web Analytics -->
-  <script type="module">
-    import { inject } from 'https://cdn.jsdelivr.net/npm/@vercel/analytics@latest/dist/index.js';
-    inject();
-  </script>
-
   <script>
     (function () {
       /* ── Sticky nav scroll shadow ─────────────────────────────── */
@@ -1403,7 +1400,7 @@
         if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
       });
 
-      /* ── Carousels ────────────────────────────────────────────── */
+      /* ── Carousels ────────────────────���───────────────────────── */
       document.querySelectorAll('.carousel').forEach(function(carousel) {
         var track  = carousel.querySelector('.carousel__track');
         var slides = track.querySelectorAll('img');
